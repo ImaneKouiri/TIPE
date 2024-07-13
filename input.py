@@ -1,5 +1,4 @@
 import pygame
-import sys
 
 class InputBoxManager:
     def __init__(self, screen, position, width, height):
@@ -11,10 +10,8 @@ class InputBoxManager:
         self.surface.fill((255, 255, 255))  # Fill with white background
 
         self.variables = {
-            'Draw Lenght': '0.5',
-            'Initial Angle': '0.78',
-            'K': '500',
-            'Arrow Mass': '0.018'
+            'Masse': '0.02',
+            'Distance': '100'
         }
 
         self.font_size = max(20, height // (len(self.variables) + 6))  # Adaptive font size
@@ -60,10 +57,9 @@ class InputBoxManager:
             mouse_y -= self.position[1]
 
             if self.button_rect.collidepoint(mouse_x, mouse_y):
-                print("pressed")
-                print(self.variables)
-                print(self.active_variable)
                 self.is_done = True
+                # Reset graph data here or signal to main loop to reset
+                return 'reset'  # Indicate to the main loop that a reset is needed
             elif not any(input_rect.collidepoint((mouse_x, mouse_y)) for _, input_rect, _ in self.rects):
                 self.active_variable = None
             else:
@@ -83,6 +79,7 @@ class InputBoxManager:
                     new_text = self.variables[self.active_variable] + char
                     if self.font.size(new_text)[0] < self.width - 50:  # Ensure text fits within width
                         self.variables[self.active_variable] = new_text
+
 
     def update(self):
         self.surface.fill((255, 255, 255))  # Clear surface with white color
