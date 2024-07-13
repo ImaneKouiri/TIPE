@@ -1,9 +1,4 @@
-
-
 import pygame
-import math
-import sys
-
 import config
 
 from archery import aphysix
@@ -22,10 +17,8 @@ class GraphBoxManager:
         self.clock = pygame.time.Clock()
 
         self.points = []
-        self.k = 500
-        self.arrow_mass = 0.0188
-        self.initial_velocity = 47
-        self.engine = aphysix(self.k, self.arrow_mass)
+        self.initial_velocity = 87.03
+        self.engine = aphysix()
 
         self.padding = 1/12
         self.graph_padding = self.height * self.padding
