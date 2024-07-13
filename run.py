@@ -1,12 +1,10 @@
-
 import pygame
 import sys
 
 import config
-from inputv2 import InputBoxManager
+from input import InputBoxManager
 from graph import GraphBoxManager
 
-from archery import aphysix
 
 pygame.init()
 main_screen = pygame.display.set_mode((1600, 600))
@@ -42,9 +40,10 @@ while running:
         if start_tick_set:
             
             data_dict = input_manager.variables
-            initial_angle = float(data_dict["Angle"])
+            distance = float(data_dict["Distance"])
+            initial_angle = graph_manager.engine.get_angle_from_distance(distance, graph_manager.initial_velocity)
             max_x, max_y, points = graph_manager.engine.get_data(initial_angle=initial_angle, initial_velocity= graph_manager.initial_velocity)
-            scale = 1/5
+            scale = 1/2
             graph_manager.update(start_ticks=start_ticks, data_dict=input_manager.variables, points=points, idx=idx, scale=scale)
             running = True #graph_manager.running
             if graph_manager.running:
